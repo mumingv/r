@@ -142,6 +142,48 @@ barplot(counts, main = "Stacked Bar Plot",
         beside = TRUE)
 
 
+# 6.3 直方图
+par(mfrow = c(1, 1))
+hist(mtcars$mpg)
+hist(mtcars$mpg, breaks = 12, col = "red", 
+     xlab = "Miles Per Gallon", main = "Colored histogram with 12 bins")
+hist(mtcars$mpg, freq = FALSE, breaks = 12, col = "red", 
+     xlab = "Miles Per Gallon", main = "Histogram run plot, density curve")
+rug(jitter(mtcars$mpg))
+lines(density(mtcars$mpg), col = "blue", lwd = 2)
+x <- mtcars$mpg
+h <- hist(x, breaks = 12, col = "red", xlab = "Miles Per Gallon",
+          main = "Histogram with normal curve and box")
+xfit <- seq(min(x), max(x), length = 40)
+yfit <- dnorm(xfit, mean = mean(x), sd = sd(x))
+yfit <- yfit * diff(h$mids[1:2]) * length(x)
+lines(xfit, yfit, col = "blue", lwd = 2)
+box()
+
+
+# 6.4 核密度图
+
+
+# 6.5 箱线图
+boxplot(mtcars$mpg, main = "Box plot", ylab = "Miles per Gallon")
+
+
+# ggplot2作图：采用图层绘图
+# 数据到图形的映射使用aesthetics来完成
+library(ggplot2)
+str(diamonds)
+dim(diamonds)
+ggplot(diamonds, aes(x = carat, y = price, color = clarity, group = 1)) +
+    geom_point() +
+    geom_smooth(se = FALSE) +
+    ggtitle("钻石") +
+    theme(plot.title = element_text(vjust = 2))
+
+
+
+
+
+
 
 
 
